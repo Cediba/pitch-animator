@@ -3,7 +3,32 @@ const Pitchfinder = require("pitchfinder");
 
 
 console.log("hi");
+navigator.mediaDevices.getUserMedia({audio: true})
+    .then(stream => {
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
 
+        //collect audio data
+        const audioChunks = [];
+        mediaRecorder.addEventListener("dataavailable", event => {
+            audioChunks.push(event.data);
+        });
+
+        //convert data and play the audio
+        mediaRecorder.addEventListener("stop", () => {
+            const audioBlob = new Blob(audioChunks);
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            const pitchfinder = Pitchfinder.YIN();
+            const pitch = pitchfinder(audio)
+            console.log(pitch);
+        });
+
+        //stop recording
+        setTimeout(() => {
+            mediaRecorder.stop();
+        }, 3000);
+    });
 },{"pitchfinder":2}],2:[function(require,module,exports){
 module.exports = require("./lib");
 },{"./lib":7}],3:[function(require,module,exports){
