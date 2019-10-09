@@ -17,14 +17,22 @@ navigator.mediaDevices.getUserMedia({audio: true})
         mediaRecorder.addEventListener("stop", () => {
             const audioBlob = new Blob(audioChunks);
             const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
-            const pitchfinder = Pitchfinder.YIN();
-            // const pitch = pitchfinder(audio);
-            const buffer = fs.readFileSync(PATH_TO_FILE);
-const decoded = WavDecoder.decode.sync(buffer); // get audio data from file using `wav-decoder`
-const float32Array = decoded.channelData[0]; // get a single channel of sound
-const pitch = detectPitch(float32Array); // null if pitch cannot be identified
-            console.log(pitch);
+            // const audio = new Audio(audioUrl);
+            // audio.play();
+            // const audioArrayBuffer = (audioBlob.arrayBuffer());
+            audioBlob.arrayBuffer().then(buffer => {
+                console.log(buffer);
+                const pitchfinder = Pitchfinder.YIN();
+                const float32Array = buffer.channelData[0];
+                const pitch = pitchfinder(float32Array);
+                console.log(buffer);
+                console.log(pitch);
+            });
+            // const fileReader = new FileReader();
+            // const audioBuffer = fileReader.readAsArrayBuffer(audioChunks);
+            // const pitchfinder = Pitchfinder.YIN();
+            // const pitch = pitchfinder(audioBuffer);
+            // console.log(audioBuffer);
         });
 
         //stop recording
