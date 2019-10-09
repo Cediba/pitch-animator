@@ -1,46 +1,42 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const Pitchfinder = require("pitchfinder");
 
-
-console.log("hi");
 navigator.mediaDevices.getUserMedia({audio: true})
-    .then(stream => {
-        const mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.start();
+  .then(stream => {
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
 
-        //collect audio data
-        const audioChunks = [];
-        mediaRecorder.addEventListener("dataavailable", event => {
-            audioChunks.push(event.data);
-        });
+      //collect audio data
+      const audioChunks = [];
+      mediaRecorder.addEventListener("dataavailable", event => {
+          audioChunks.push(event.data);
+      });
 
-        //convert data and play the audio
-        mediaRecorder.addEventListener("stop", () => {
-            const audioBlob = new Blob(audioChunks);
-            const audioUrl = URL.createObjectURL(audioBlob);
-            // const audio = new Audio(audioUrl);
-            // audio.play();
-            // const audioArrayBuffer = (audioBlob.arrayBuffer());
-            audioBlob.arrayBuffer().then(buffer => {
-                console.log(buffer);
-                const pitchfinder = Pitchfinder.YIN();
-                const float32Array = buffer.channelData[0];
-                const pitch = pitchfinder(float32Array);
-                console.log(buffer);
-                console.log(pitch);
-            });
-            // const fileReader = new FileReader();
-            // const audioBuffer = fileReader.readAsArrayBuffer(audioChunks);
-            // const pitchfinder = Pitchfinder.YIN();
-            // const pitch = pitchfinder(audioBuffer);
-            // console.log(audioBuffer);
-        });
 
-        //stop recording
-        setTimeout(() => {
-            mediaRecorder.stop();
-        }, 3000);
+      //convert data and play the audio
+      mediaRecorder.addEventListener("stop", () => {
+          const audioBlob = new Blob(audioChunks);
+          const audioContext = new AudioContext();
+          audioBlob.arrayBuffer()
+          .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+          .then(audioBuffer => {
+            console.log(audioBuffer);
+            const aaa = Pitchfinder.AMDF({sampleRate: 48000});
+            const float32Array = audioBuffer.getChannelData(0);
+            if(float32Array){
+              console.log(float32Array);
+              const pitch = aaa(float32Array);
+              console.log(pitch);
+            }
+          })
+      });
+
+      //stop recording
+      setTimeout(() => {
+          mediaRecorder.stop();
+      }, 3000);
     });
+
 },{"pitchfinder":2}],2:[function(require,module,exports){
 module.exports = require("./lib");
 },{"./lib":7}],3:[function(require,module,exports){
