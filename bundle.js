@@ -1,8 +1,39 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const Pitchfinder = require("pitchfinder");
 
+navigator.mediaDevices.getUserMedia({audio: true})
+  .then(stream => {
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
 
-console.log("hi");
+      //collect audio data
+      const audioChunks = [];
+      mediaRecorder.addEventListener("dataavailable", event => {
+          audioChunks.push(event.data);
+      });
+
+      //convert data and play the audio
+      mediaRecorder.addEventListener("stop", () => {
+          const audioBlob = new Blob(audioChunks);
+          const audioContext = new AudioContext();
+          audioBlob.arrayBuffer()
+          .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+          .then(audioBuffer => {
+            console.log(audioBuffer);
+            const pitchfinder = Pitchfinder.YIN({sampleRate: 48000});
+            const float32Array = audioBuffer.getChannelData(0);
+            if(float32Array){
+              const pitch = pitchfinder(float32Array);
+              console.log(pitch)
+            }
+          })
+      });
+
+      //stop recording
+      setTimeout(() => {
+          mediaRecorder.stop();
+      }, 1000);
+    });
 
 },{"pitchfinder":2}],2:[function(require,module,exports){
 module.exports = require("./lib");
