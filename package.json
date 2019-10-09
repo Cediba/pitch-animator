@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pitchfinder": "^2.1.0"
+    "web-audio-daw": "^4.6.0"
   }
 }

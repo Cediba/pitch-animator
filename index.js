@@ -1,36 +1,15 @@
-const Pitchfinder = require("pitchfinder");
+const Wad = require('web-audio-daw');
 
-navigator.mediaDevices.getUserMedia({audio: true})
-  .then(stream => {
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorder.start();
+var voice = new Wad({source : 'mic' }); // At this point, your browser will ask for permission to access your microphone.
+var tuner = new Wad.Poly();
+tuner.setVolume(0); // If you're not using headphones, you can eliminate microphone feedback by muting the output from the tuner.
+tuner.add(voice);
 
-      //collect audio data
-      const audioChunks = [];
-      mediaRecorder.addEventListener("dataavailable", event => {
-          audioChunks.push(event.data);
-      });
+voice.play(); // You must give your browser permission to access your microphone before calling play().
 
-      //convert data and play the audio
-      mediaRecorder.addEventListener("stop", () => {
-          const audioBlob = new Blob(audioChunks);
-          const audioContext = new AudioContext();
-          audioBlob.arrayBuffer()
-          .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-          .then(audioBuffer => {
-            console.log(audioBuffer);
-            const pitchfinder = Pitchfinder.YIN({sampleRate: 48000});
-            const float32Array = audioBuffer.getChannelData(0);
-            if(float32Array){
-              console.log(float32Array);
-              const pitch = pitchfinder(float32Array);
-              console.log(pitch);
-            }
-          })
-      });
+tuner.updatePitch() // The tuner is now calculating the pitch and note name of its input 60 times per second. These values are stored in <code>tuner.pitch</code> and <code>tuner.noteName</code>.
 
-      //stop recording
-      setTimeout(() => {
-          mediaRecorder.stop();
-      }, 1000);
-    });
+setInterval(() => {
+  console.log(tuner.pitch, tuner.noteName)
+}, 500);
+// If you sing into your microphone, your pitch will be logged to the console in real time.
