@@ -1,4 +1,3 @@
 const Pitchfinder = require("pitchfinder");
 
-
-console.log("hi");
+console.log(Pitchfinder);
