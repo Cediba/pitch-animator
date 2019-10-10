@@ -6,11 +6,9 @@
     height:200px;
     border-radius:20px;
     background-color:  rgb(81, 81, 253);
-    animation: box-roll-over 2s linear  infinite;
+    animation: box-roll-over 2s infinite;
     animation-duration: 1s;
 }
-
-
 
 @keyframes box-roll-over{
     0%, 5% {
