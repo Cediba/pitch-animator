@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+div {
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: relative;
+  -webkit-animation: mymove 5s; /* Safari 4.0 - 8.0 */
+  //-webkit-animation-play-state: paused; /* Safari 4.0 - 8.0 */
+  animation: mymove 5s infinite;
+  animation-play-state: paused;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymove {
+  from {left: 0px;}
+  to {left: 200px;}
+}
+
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 200px;}
+}
+</style>
+</head>
+<body>
+
+<h1>The animation-play-state Property</h1>
+
+<p>Pause an animation:</p>
+<div id="animation"></div>
+<button>Start animation</button>
+<p><strong>Note:</strong> The animation-play-state property is not supported in Internet Explorer 9 and earlier versions.</p>
+
+
+<script>
+    let div = document.getElementById("animation");
+    let button = document.getElementsByTagName("button")[0];
+    button.addEventListener("click", () => {
+        div.style.animationPlayState = "running";
+        setTimeout(() => {
+            div.style.animationPlayState = "paused";
+        }, 5000)
+    })
+</script>
+</body>
+</html>
