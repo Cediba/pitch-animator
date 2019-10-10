@@ -2,48 +2,125 @@
 <html>
 <head>
 <style>
-div {
-  width: 100px;
-  height: 100px;
-  background: red;
-  position: relative;
-  -webkit-animation: mymove 5s; /* Safari 4.0 - 8.0 */
-  //-webkit-animation-play-state: paused; /* Safari 4.0 - 8.0 */
-  animation: mymove 5s infinite;
-  animation-play-state: paused;
-}
 
-/* Safari 4.0 - 8.0 */
-@-webkit-keyframes mymove {
-  from {left: 0px;}
-  to {left: 200px;}
-}
+  #animation {
+    width: 10%;
+    display: block;
+    margin: 0 auto;
+  }
 
-@keyframes mymove {
-  from {left: 0px;}
-  to {left: 200px;}
-}
+  .triangle {
+    margin: 0 auto;
+    display: inline-block;
+    visibility: hidden;
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid green;
+    position: relative;
+  }
+
+  .triangle:nth-child(odd) {
+    animation: tri1 infinite 1s;
+    animation-play-state: paused;
+  }
+
+  .triangle:nth-child(even) {
+    transform: rotate(180deg);
+    animation: tri2 infinite 1s;
+    animation-play-state: paused;
+  }
+
+  @keyframes tri1 {
+    0% {
+      left: 0;
+      opacity: 1;
+    }
+
+    1% {
+      visibility: visible;
+    }
+
+    50% {
+      left: 600px;
+      opacity: 1;
+    }
+
+    100% {
+      left: 600px;
+      opacity: 0;
+    }
+  }
+
+  @keyframes tri2 {
+    0% {
+      right: 0;
+      opacity: 1;
+    }
+
+    1% {
+      visibility: visible;
+    }
+
+    50% {
+      right: 600px;
+      opacity: 1;
+    }
+
+    100% {
+      right: 600px;
+      opacity: 0;
+    }
+  }
+
 </style>
 </head>
 <body>
 
 <h1>The animation-play-state Property</h1>
-
 <p>Pause an animation:</p>
-<div id="animation"></div>
+<div id="animation">
+  <div class="row">
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+  </div>
+  <div class="row">
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+  </div>
+  <div class="row">
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+    <span class="triangle"></span>
+  </div>  
+</div>
 <button>Start animation</button>
 <p><strong>Note:</strong> The animation-play-state property is not supported in Internet Explorer 9 and earlier versions.</p>
 
 
 <script>
-    let div = document.getElementById("animation");
+    let spans = document.getElementsByClassName("triangle");
     let button = document.getElementsByTagName("button")[0];
     button.addEventListener("click", () => {
-        div.style.animationPlayState = "running";
+      for(let i = 0; i < spans.length; i ++){
+        spans[i].style.animationPlayState = "running";
         setTimeout(() => {
-            div.style.animationPlayState = "paused";
-        }, 5000)
-    })
+          spans[i].style.animationPlayState = "paused";
+        }, 1000)
+      }      
+  })
 </script>
 </body>
 </html>
