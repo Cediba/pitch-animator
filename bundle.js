@@ -11,11 +11,19 @@ voice.play(); // You must give your browser permission to access your microphone
 
 tuner.updatePitch() // The tuner is now calculating the pitch and note name of its input 60 times per second. These values are stored in <code>tuner.pitch</code> and <code>tuner.noteName</code>.
 
+
+
 setInterval(() => {
     console.log(tuner.pitch, tuner.noteName)
-}, 500);
+    if (tuner.noteName === "D3") {
+        let div = document.getElementsByClassName("box")[0];
+        div.style.animationPlayState = "running";
+        setTimeout(() => {
+            div.style.animationPlayState = "paused"
+        }, 1000)
+    }
+}, 500);    
 // If you sing into your microphone, your pitch will be logged to the console in real time.
-
 },{"web-audio-daw":2}],2:[function(require,module,exports){
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
