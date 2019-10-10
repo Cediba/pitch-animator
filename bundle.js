@@ -1,6 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const Wad = require('web-audio-daw');
 
+
 var voice = new Wad({source : 'mic' }); // At this point, your browser will ask for permission to access your microphone.
 var tuner = new Wad.Poly();
 tuner.setVolume(0); // If you're not using headphones, you can eliminate microphone feedback by muting the output from the tuner.
@@ -11,7 +12,7 @@ voice.play(); // You must give your browser permission to access your microphone
 tuner.updatePitch() // The tuner is now calculating the pitch and note name of its input 60 times per second. These values are stored in <code>tuner.pitch</code> and <code>tuner.noteName</code>.
 
 setInterval(() => {
-  console.log(tuner.pitch, tuner.noteName)
+    console.log(tuner.pitch, tuner.noteName)
 }, 500);
 // If you sing into your microphone, your pitch will be logged to the console in real time.
 

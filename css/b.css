@@ -1,0 +1,33 @@
+.box{
+    position:absolute;
+    top:200px;
+    left:200px;
+    width:200px;
+    height:200px;
+    border-radius:20px;
+    background-color:  rgb(81, 81, 253);
+    animation: box-roll-over 2s linear  infinite;
+    animation-duration: 1s;
+}
+
+
+
+@keyframes box-roll-over{
+    0%, 5% {
+      transform: 
+        translateX(0rem)
+        rotate(0deg);
+        opacity:0;
+        width:20px;
+    }
+    95%, 100% {
+      transform: 
+        translateX(40rem)
+        rotate(360deg);
+        opacity:0.5;
+        
+    }
+    50%{
+        opacity:1;
+    }
+}
