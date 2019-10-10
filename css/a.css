@@ -22,17 +22,17 @@ circle {
     transform: scale(0);
     opacity: 0;
     transform-origin: 50% 50%;
-    animation: pulse 2s cubic-bezier(.5,.5,0,1);
+    animation: pulse infinite 1s cubic-bezier(.5,.5,0,1);
 }
     
     circle:nth-child(2) {
         fill: #7fc6a4;
-        animation: pulse 2s 0.5s cubic-bezier(.5,.5,0,1);
+        animation: pulse infinite 1s 0.25s cubic-bezier(.5,.5,0,1);
     }
     
     circle:nth-child(3) {
         fill: #e5f77d;
-        animation: pulse 2s 1s cubic-bezier(.5,.5,0,1);
+        animation: pulse infinite 1s 0.5s cubic-bezier(.5,.5,0,1);
     }
 
 @keyframes pulse {
