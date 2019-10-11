@@ -8,6 +8,7 @@
     background-color:  rgb(81, 81, 253);
     animation: box-roll-over 2s infinite;
     animation-duration: 1s;
+    animation-play-state: paused;
 }
 
 @keyframes box-roll-over{

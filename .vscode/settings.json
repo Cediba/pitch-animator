@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "pitch-animator"
+    "liveServer.settings.multiRootWorkspaceName": "pitch-animator",
+    "liveServer.settings.port": 5501
 }
