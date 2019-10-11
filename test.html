@@ -109,18 +109,16 @@
 <button>Start animation</button>
 <p><strong>Note:</strong> The animation-play-state property is not supported in Internet Explorer 9 and earlier versions.</p>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-    let spans = document.getElementsByClassName("triangle");
-    let button = document.getElementsByTagName("button")[0];
-    button.addEventListener("click", () => {
+    let spans = $(".triangle");
+    let button = $("button")[0];
+    console.log(button)
+    
       for(let i = 0; i < spans.length; i ++){
-        spans[i].style.animationPlayState = "running";
-        setTimeout(() => {
-          spans[i].style.animationPlayState = "paused";
-        }, 1000)
-      }      
-  })
+        console.log(spans[i])
+      }   
+  
 </script>
 </body>
 </html>
