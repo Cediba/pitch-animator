@@ -1,44 +1,64 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+// voice configuration
+
 const Wad = require('web-audio-daw');
-
-
-var voice = new Wad({source : 'mic' }); // At this point, your browser will ask for permission to access your microphone.
+var voice = new Wad({source : 'mic' });
 var tuner = new Wad.Poly();
-tuner.setVolume(0); // If you're not using headphones, you can eliminate microphone feedback by muting the output from the tuner.
+tuner.setVolume(0);
 tuner.add(voice);
-
-voice.play(); // You must give your browser permission to access your microphone before calling play().
-
-tuner.updatePitch() // The tuner is now calculating the pitch and note name of its input 60 times per second. These values are stored in <code>tuner.pitch</code> and <code>tuner.noteName</code>.
+voice.play();
+tuner.updatePitch()
 
 
+//animation configuration
+
+let circles = document.getElementsByTagName("circle");
+for(let i = 0; i < circles.length ; i ++) {
+  circles[i].addEventListener('animationiteration', function() {
+    this.style.animationPlayState = "paused";
+  });
+}
+
+let box = document.getElementById('B');
+box.addEventListener('animationiteration', function() {
+  this.style.animationPlayState = "paused";
+});
+
+let doritos = document.getElementsByClassName("triangle");
+for(let i = 0; i < doritos.length ; i ++) {
+  doritos[i].addEventListener('animationend', function() {
+    this.classList.remove("triangle-animated");
+  });
+}
+
+let squares = document.getElementsByClassName("square");
+for(let i = 0; i < squares.length; i ++) {
+  squares[i].addEventListener('animationiteration', function() {
+    this.style.animationPlayState = "paused";
+  })
+}
 
 setInterval(() => {
-    console.log(tuner.pitch, tuner.noteName)
-    var tune = tuner.noteName;
-    switch (tune){
-        case 0:
-            if (tune === "D3") {
-                let div = document.getElementsByClassName("box")[0];
-                div.style.animationPlayState = "running";
-                setTimeout(() => {
-                    div.style.animationPlayState = "paused"
-                }, 1000)
+    const note = tuner.noteName ? tuner.noteName.slice(0,1) : undefined;
+    console.log(note);
+    if(note === "A") {
+      for(let i = 0; i < circles.length; i ++){
+        circles[i].style.animationPlayState = "running";
+      }
+    } else if(note === "B"){
+      box.style.animationPlayState = "running";
+    } else if(note === "C"){
+      for(let i = 0; i < doritos.length; i ++){
+        doritos[i].classList.add("triangle-animated");
+      }
+    } else if(note === "D"){
+      for(let i = 0; i < squares.length; i ++){
+        squares[i].style.animationPlayState = "running"
+      }
     }
-        break;
-
-    case 1:
-        if (tune === "A7") {
-            let div = document.getElementsByClassName("pulse")[0];
-            div.style.animationPlayState = "running";
-            setTimeout(() => {
-                div.style.animationPlayState = "paused"
-            }, 1000)
-    }
-        break;
-}
 }, 500);
 // If you sing into your microphone, your pitch will be logged to the console in real time.
+
 },{"web-audio-daw":2}],2:[function(require,module,exports){
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')

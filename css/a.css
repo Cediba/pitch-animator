@@ -25,18 +25,18 @@ circle {
     animation: pulse infinite 1s cubic-bezier(.5,.5,0,1);
     animation-play-state: paused;
 }
-    
-    circle:nth-child(2) {
-        fill: #7fc6a4;
-        animation: pulse infinite 1s 0.25s cubic-bezier(.5,.5,0,1);
-        animation-play-state: paused;
-    }
-    
-    circle:nth-child(3) {
-        fill: #e5f77d;
-        animation: pulse infinite 1s 0.5s cubic-bezier(.5,.5,0,1);
-        animation-play-state: paused;
-    }
+
+circle:nth-child(2) {
+    fill: #7fc6a4;
+    animation: pulse infinite 1s 0.25s cubic-bezier(.5,.5,0,1);
+    animation-play-state: paused;
+}
+
+circle:nth-child(3) {
+    fill: #e5f77d;
+    animation: pulse infinite 1s 0.5s cubic-bezier(.5,.5,0,1);
+    animation-play-state: paused;
+}
 
 @keyframes pulse {
 
