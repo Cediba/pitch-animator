@@ -1,0 +1,64 @@
+.triangle {
+  margin: 0 auto;
+  display: inline-block;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid green;
+  position: relative;
+}
+
+.triangle-animated:nth-child(odd) {
+  animation: tri1 linear 1s;
+}
+
+.triangle-animated:nth-child(even) {
+  transform: rotate(180deg);
+  animation: tri2 linear 1s;
+}
+
+@keyframes tri1 {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+
+  1% {
+    visibility: visible;
+  }
+
+  50% {
+    transform: rotate(90deg);
+    left: 600px;
+    opacity: 1;
+  }
+
+  100% {
+    left: 600px;
+    opacity: 0;
+  }
+}
+
+@keyframes tri2 {
+  0% {
+    right: 0;
+    opacity: 1;
+  }
+
+  1% {
+    visibility: visible;
+  }
+
+  50% {
+    transform: rotate(-90deg);
+    right: 600px;
+    opacity: 1;
+  }
+
+  100% {
+    right: 600px;
+    opacity: 0;
+  }
+}
