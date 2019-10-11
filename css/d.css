@@ -11,35 +11,37 @@ body {
     animation-fill-mode: forwards;
 }
 
-[class*="Square"] {
+.square {
     border-left: 50vw solid transparent;
     border-top: 50vh solid transparent;
     border-right: 50vw solid transparent;
     border-bottom: 50vh solid transparent;
     position: absolute;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
 }
 
-.leftSquare {
+.square:nth-child(1) {
     border-left: 50vw solid rgb(1,1,1);
     left: -50vw;
-    animation-name: moveLeftSquare;
+    animation: moveLeftSquare infinite 1s;
+    animation-play-state: paused;
 }
-.topSquare {
+.square:nth-child(2) {
     border-top: 50vh solid rgb(1,159,85);
     top: -50vh;
-    animation-name: moveTopSquare;
+    animation: moveTopSquare infinite 1s;
+    animation-play-state: paused;
 }
-.rightSquare {
+.square:nth-child(3) {
     border-right: 50vw solid rgb(1,1,1);
     right: -50vw;
-    animation-name: moveRightSquare;
+    animation: moveRightSquare infinite 1s;
+    animation-play-state: paused;
 }
-.bottomSquare {
+.square:nth-child(4) {
     border-bottom: 50vh solid rgb(1,159,85);
     bottom: -50vh;
-    animation-name: moveBottomSquare;
+    animation: moveBottomSquare infinite 1s;
+    animation-play-state: paused;
 }
 
 @keyframes fadeInBGColor {
