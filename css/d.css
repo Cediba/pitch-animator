@@ -4,12 +4,14 @@
     box-sizing: border-box;
 }
 
-body {
+.D {
     background-color: rgba(249,233,0, 0);
     animation-name: fadeInBGColor;
     animation-duration: 1s;
-    animation-fill-mode: forwards;
+    width: 100vw;
+    height: 100vh;
 }
+
 
 [class*="Square"] {
     border-left: 50vw solid transparent;
@@ -18,7 +20,6 @@ body {
     border-bottom: 50vh solid transparent;
     position: absolute;
     animation-duration: 1s;
-    animation-fill-mode: forwards;
 }
 
 .leftSquare {
