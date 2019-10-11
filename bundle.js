@@ -1,29 +1,64 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+// voice configuration
+
 const Wad = require('web-audio-daw');
-
-
-var voice = new Wad({source : 'mic' }); // At this point, your browser will ask for permission to access your microphone.
+var voice = new Wad({source : 'mic' });
 var tuner = new Wad.Poly();
-tuner.setVolume(0); // If you're not using headphones, you can eliminate microphone feedback by muting the output from the tuner.
+tuner.setVolume(0);
 tuner.add(voice);
-
-voice.play(); // You must give your browser permission to access your microphone before calling play().
-
-tuner.updatePitch() // The tuner is now calculating the pitch and note name of its input 60 times per second. These values are stored in <code>tuner.pitch</code> and <code>tuner.noteName</code>.
+voice.play();
+tuner.updatePitch()
 
 
+//animation configuration
+
+let circles = document.getElementsByTagName("circle");
+for(let i = 0; i < circles.length ; i ++) {
+  circles[i].addEventListener('animationiteration', function() {
+    this.style.animationPlayState = "paused";
+  });
+}
+
+let box = document.getElementById('B');
+box.addEventListener('animationiteration', function() {
+  this.style.animationPlayState = "paused";
+});
+
+let doritos = document.getElementsByClassName("triangle");
+for(let i = 0; i < doritos.length ; i ++) {
+  doritos[i].addEventListener('animationend', function() {
+    this.classList.remove("triangle-animated");
+  });
+}
+
+let squares = document.getElementsByClassName("square");
+for(let i = 0; i < squares.length; i ++) {
+  squares[i].addEventListener('animationiteration', function() {
+    this.style.animationPlayState = "paused";
+  })
+}
 
 setInterval(() => {
-    console.log(tuner.pitch, tuner.noteName)
-    if (tuner.noteName === "D3") {
-        let div = document.getElementsByClassName("box")[0];
-        div.style.animationPlayState = "running";
-        setTimeout(() => {
-            div.style.animationPlayState = "paused"
-        }, 1000)
+    const note = tuner.noteName ? tuner.noteName.slice(0,1) : undefined;
+    console.log(note);
+    if(note === "A") {
+      for(let i = 0; i < circles.length; i ++){
+        circles[i].style.animationPlayState = "running";
+      }
+    } else if(note === "B"){
+      box.style.animationPlayState = "running";
+    } else if(note === "C"){
+      for(let i = 0; i < doritos.length; i ++){
+        doritos[i].classList.add("triangle-animated");
+      }
+    } else if(note === "D"){
+      for(let i = 0; i < squares.length; i ++){
+        squares[i].style.animationPlayState = "running"
+      }
     }
 }, 500);
 // If you sing into your microphone, your pitch will be logged to the console in real time.
+
 },{"web-audio-daw":2}],2:[function(require,module,exports){
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -1750,7 +1785,7 @@ return /******/ (function(modules) { // webpackBootstrap
             set: function (value) {
                 this.wet.gain.setTargetAtTime(value, userContext.currentTime, 0.01);
             }
-        },
+        }, 
         feedback: {
             enumerable: true,
             get: function () {
@@ -2448,10 +2483,10 @@ var Wad = (function(){
         var logLevel = logLevel || 1
         if ( logStuff.verbosity >= logLevel ) {
             console.log(message)
-        }
+        } 
         else { logStuff.suppressedLogs++ }
     }
-
+    
     var aScene = document.querySelector('a-scene');
     var context;
     if ( aScene && aScene.audioListener && aScene.audioListener.context){
@@ -2491,12 +2526,12 @@ var Wad = (function(){
                 });
             };
         }
-
+    
         return function() {
             throw "getUserMedia is unsupported";
         };
     }(window));
-
+    
     if (getUserMedia) { logMessage("Your browser supports getUserMedia."); }
     else { logMessage("Your browser does not support getUserMedia."); }
 
@@ -2671,8 +2706,8 @@ Check out http://www.voxengo.com/impulses/ for free impulse responses. **/
             else {
                 that.panning.type = '3d'
                 that.panning.panningModel   = arg.panningModel || 'equalpower';
-                that.panning.distanceModel  = arg.distanceModel
-                that.panning.maxDistance    = arg.maxDistance
+                that.panning.distanceModel  = arg.distanceModel 
+                that.panning.maxDistance    = arg.maxDistance 
                 that.panning.rolloffFactor  = arg.rolloffFactor
                 that.panning.refDistance    = arg.refDistance
                 that.panning.coneInnerAngle = arg.coneInnerAngle
@@ -2728,7 +2763,7 @@ Check out http://www.voxengo.com/impulses/ for free impulse responses. **/
         that.gain.gain.value = valueOrDefault(arg.volume,that.volume);
         that.nodes.push(that.mediaStreamSource);
         that.nodes.push(that.gain);
-
+  
 
         if ( that.filter || arg.filter ) { createFilters(that, arg); }
 
@@ -3156,7 +3191,7 @@ then finally play the sound by calling playEnv() **/
                     plugEmIn(this, arg);
                 }
             }
-            else {
+            else { 
                 logMessage('You have not given your browser permission to use your microphone.')
                 getConsent(this, arg).then(function (that) {
                     that.play(arg);
@@ -3180,7 +3215,7 @@ then finally play the sound by calling playEnv() **/
                 if ( this.source === 'noise' || this.loop || arg.loop ) {
                     this.soundSource.loop = true;
                 }
-
+                
             }
 
             if ( this.soundSource.playbackRate ) {
@@ -3427,7 +3462,7 @@ then finally play the sound by calling playEnv() **/
         if ( this.pauseTime && this.lastPlayedTime ) {
             arg.offset = this.pauseTime - this.lastPlayedTime
         }
-        else {
+        else { 
             logMessage("You tried to unpause a wad that was not played and paused, so it just played normally instead.", 2)
         }
         this.play(arg)
@@ -3626,7 +3661,7 @@ Copyright (c) 2014 Chris Wilson
 
     Wad.Poly.prototype.setPitch = function(pitch){
         this.wads.forEach(function(wad){
-
+            
             if ( pitch in Wad.pitches ) {
                 if ( wad.soundSource ) {
                     wad.soundSource.frequency.value = Wad.pitches[pitch];
