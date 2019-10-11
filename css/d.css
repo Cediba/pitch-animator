@@ -1,0 +1,69 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(249,233,0, 0);
+    animation-name: fadeInBGColor;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+[class*="Square"] {
+    border-left: 50vw solid transparent;
+    border-top: 50vh solid transparent;
+    border-right: 50vw solid transparent;
+    border-bottom: 50vh solid transparent;
+    position: absolute;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.leftSquare {
+    border-left: 50vw solid rgb(1,1,1);
+    left: -50vw;
+    animation-name: moveLeftSquare;
+}
+.topSquare {
+    border-top: 50vh solid rgb(1,159,85);
+    top: -50vh;
+    animation-name: moveTopSquare;
+}
+.rightSquare {
+    border-right: 50vw solid rgb(1,1,1);
+    right: -50vw;
+    animation-name: moveRightSquare;
+}
+.bottomSquare {
+    border-bottom: 50vh solid rgb(1,159,85);
+    bottom: -50vh;
+    animation-name: moveBottomSquare;
+}
+
+@keyframes fadeInBGColor {
+    100% {
+        background-color: rgba(249,233,0, 1);
+    }
+}
+@keyframes moveLeftSquare {
+    100% {
+        left: -90px;
+    }
+}
+@keyframes moveTopSquare {
+    100% {
+        top: -50px;
+    }
+}
+@keyframes moveRightSquare {
+    100% {
+        right: -90px;
+    }
+}
+@keyframes moveBottomSquare {
+    100% {
+        bottom: -50px;
+    }
+}
