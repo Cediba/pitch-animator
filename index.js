@@ -37,6 +37,11 @@ for(let i = 0; i < squares.length; i ++) {
   })
 }
 
+let flash = document.getElementsByClassName("flash")[0];
+flash.addEventListener('animationiteration', function() {
+    this.style.animationPlayState = "paused";
+});
+
 setInterval(() => {
     const note = tuner.noteName ? tuner.noteName.slice(0,1) : undefined;
     console.log(note);
@@ -54,6 +59,8 @@ setInterval(() => {
       for(let i = 0; i < squares.length; i ++){
         squares[i].style.animationPlayState = "running"
       }
+    } else if(note === "E"){
+        flash.style.animationPlayState = "running";
     }
 }, 500);
 // If you sing into your microphone, your pitch will be logged to the console in real time.

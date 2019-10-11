@@ -1,0 +1,20 @@
+.flash{
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    animation: flashi infinite 1s;
+    background-color:black;
+}
+
+@keyframes flashi {
+    0%, 50%, 100% {
+    opacity: 0;
+    }
+    
+    25%, 75% {
+    opacity: 1;
+    }
+    }
